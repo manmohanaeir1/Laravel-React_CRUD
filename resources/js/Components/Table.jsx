@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Table = ({users}) => {
     return (
         <div>
@@ -33,7 +34,7 @@ const Table = ({users}) => {
                                                  
                                             </td>
                                             <td className="px-3 py-2 whitespace-nowrap">    
-                                               <a href={`/delete/users/${user.id}`}
+                                               <a href={`/delete/user/${user.id}`}
                                                 className="text-red-600 hover:underline"
                                             >
                                                 Delete

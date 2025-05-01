@@ -17,9 +17,9 @@ class UserController extends Controller
     public function index()
     {
         // Fetch users from the database
-        
-        $users = User::all();
         $user = Auth::user();
+        $users = User::where('id', '!=', Auth::id())->get();
+        
 
         return Inertia::render('Users/Users', [
             'users' => $users,
@@ -97,6 +97,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return to_route('users.index')->with('success', 'User deleted successfully.');
+    }   
 }
