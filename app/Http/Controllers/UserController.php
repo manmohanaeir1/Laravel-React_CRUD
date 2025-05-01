@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Inertia\Inertia;
+ 
+use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
 
 class UserController extends Controller
 {
@@ -12,8 +16,19 @@ class UserController extends Controller
      */
     public function index()
     {
-         return Inertia::render('Users/Users');
-    }
+        // Fetch users from the database
+        
+        $users = User::all();
+        $user = Auth::user();
+
+        return Inertia::render('Users/Users', [
+            'users' => $users,
+            'user' => $user,
+        ]);
+
+
+
+     }
 
     /**
      * Show the form for creating a new resource.
