@@ -59,7 +59,15 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $user = Auth::user();
+        $userDetails = User::find($id);
+        return Inertia::render('Users/EditForm', [
+            'user' => $user,
+            'user_Details' => $userDetails,
+        ]);
+
+        
     }
 
     /**
@@ -67,7 +75,21 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+        
+
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        
+        $user->save();
+
+        return to_route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**

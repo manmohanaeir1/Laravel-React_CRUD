@@ -23,6 +23,14 @@ Route::get('/dashboard', function () {
 //Route 
 
 Route::get('/Users', [UserController::class, 'index'])->name('users.index'); 
+ 
+Route::get('/edit/user/{id} ', [UserController::class, 'edit'])->name('users.edit');
+
+Route::post('/Users/{id}', [UserController::class, 'update'])->name('users.update');
+ 
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
